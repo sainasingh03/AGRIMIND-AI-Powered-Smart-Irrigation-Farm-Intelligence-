@@ -368,9 +368,6 @@ Push the branch and open a pull request.
 
 Never commit .env files, credentials, virtual environments, caches or generated dependency folders.
 
-📄 License
-
-Add a LICENSE file before describing the project as open source or granting reuse permissions.
 
 👩‍💻 Maintainer
 
