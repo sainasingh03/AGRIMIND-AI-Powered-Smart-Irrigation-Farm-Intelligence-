@@ -1,0 +1,638 @@
+/* =========================================================
+   AGRIMIND — DECISION CARD
+   Primary AI recommendation surface
+   ========================================================= */
+
+.decision-card {
+  position: relative;
+
+  min-height: 290px;
+  padding: 26px;
+
+  border: 1px solid rgba(16, 38, 29, 0.09);
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(113, 140, 120, 0.13),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      #fcfbf7,
+      #f4f2e9
+    );
+
+  box-shadow:
+    0 20px 60px
+    rgba(16, 38, 29, 0.055);
+
+  isolation: isolate;
+}
+
+/* =========================================================
+   ATMOSPHERE
+   ========================================================= */
+
+.decision-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  top: -145px;
+  right: -95px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(93, 155, 114, 0.16),
+      transparent 68%
+    );
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+.decision-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.4;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.7),
+      transparent 28%
+    );
+}
+
+/* =========================================================
+   TONE STATES
+   ========================================================= */
+
+.decision-card-safe {
+  border-color:
+    rgba(93, 155, 114, 0.18);
+}
+
+.decision-card-active {
+  border-color:
+    rgba(199, 169, 107, 0.2);
+}
+
+.decision-card-critical {
+  border-color:
+    rgba(217, 120, 88, 0.2);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.decision-card-header {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.decision-card-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: 8px;
+
+  color: #718c78;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 0.17em;
+}
+
+.decision-card-eyebrow span {
+  width: 16px;
+  height: 1px;
+
+  background: #718c78;
+}
+
+.decision-card-title {
+  margin: 0;
+
+  color: #10261d;
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(25px, 3vw, 35px);
+  font-weight: 600;
+
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+.decision-card-subtitle {
+  max-width: 390px;
+
+  margin: 9px 0 0;
+
+  color: #7d8982;
+
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+/* =========================================================
+   AI ICON
+   ========================================================= */
+
+.decision-ai-icon {
+  position: relative;
+
+  width: 44px;
+  height: 44px;
+
+  flex: 0 0 auto;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid
+    rgba(93, 155, 114, 0.17);
+
+  border-radius: 14px;
+
+  color: #dce9df;
+
+  background:
+    linear-gradient(
+      145deg,
+      #1b4332,
+      #10261d
+    );
+
+  box-shadow:
+    0 12px 28px
+    rgba(16, 38, 29, 0.16);
+}
+
+.decision-ai-icon::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -5px;
+
+  border: 1px solid
+    rgba(93, 155, 114, 0.18);
+
+  border-radius: 17px;
+
+  animation:
+    decision-pulse 3s ease-in-out infinite;
+}
+
+@keyframes decision-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.04);
+  }
+}
+
+/* =========================================================
+   COMMAND AREA
+   ========================================================= */
+
+.decision-command {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+
+  gap: 22px;
+
+  margin-top: 25px;
+  padding: 18px 20px;
+
+  border: 1px solid
+    rgba(16, 38, 29, 0.07);
+
+  border-radius: 16px;
+
+  background:
+    rgba(255, 255, 255, 0.42);
+
+  backdrop-filter: blur(12px);
+}
+
+/* =========================================================
+   ACTION LABEL
+   ========================================================= */
+
+.decision-action-label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #929d96;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.decision-action {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: #10261d;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(16px, 2vw, 21px);
+  font-weight: 700;
+
+  letter-spacing: -0.04em;
+}
+
+.decision-action-dot {
+  width: 7px;
+  height: 7px;
+
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  background: #5d9b72;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(93, 155, 114, 0.1);
+
+  animation:
+    decision-dot 2s ease-in-out infinite;
+}
+
+@keyframes decision-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* =========================================================
+   WATER OUTPUT
+   ========================================================= */
+
+.decision-water {
+  min-width: 115px;
+
+  padding-left: 20px;
+
+  border-left: 1px solid
+    rgba(16, 38, 29, 0.08);
+
+  text-align: right;
+}
+
+.decision-water span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #98a19b;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 6px;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+}
+
+.decision-water strong {
+  display: block;
+
+  color: #1b4332;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: -0.06em;
+}
+
+.decision-water strong small {
+  margin-left: 3px;
+
+  color: #78877e;
+
+  font-size: 8px;
+  font-weight: 500;
+
+  letter-spacing: 0;
+}
+
+/* =========================================================
+   BOTTOM METRICS
+   ========================================================= */
+
+.decision-card-footer {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 1px;
+
+  margin-top: 18px;
+
+  overflow: hidden;
+
+  border: 1px solid
+    rgba(16, 38, 29, 0.06);
+
+  border-radius: 14px;
+
+  background:
+    rgba(16, 38, 29, 0.06);
+}
+
+.decision-metric {
+  min-height: 55px;
+
+  padding: 11px 13px;
+
+  background:
+    rgba(252, 251, 247, 0.82);
+}
+
+.decision-metric span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #9aa39d;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 6px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+.decision-metric strong {
+  color: #34483d;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.decision-metric strong small {
+  margin-left: 2px;
+
+  color: #829087;
+
+  font-size: 7px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   CONFIDENCE BAR
+   ========================================================= */
+
+.decision-confidence {
+  position: relative;
+  z-index: 2;
+
+  margin-top: 17px;
+}
+
+.decision-confidence-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 6px;
+}
+
+.decision-confidence-top span {
+  color: #89948d;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 6px;
+  font-weight: 700;
+
+  letter-spacing: 0.13em;
+}
+
+.decision-confidence-top strong {
+  color: #355443;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 8px;
+}
+
+.decision-confidence-track {
+  position: relative;
+
+  width: 100%;
+  height: 4px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #e4e8e2;
+}
+
+.decision-confidence-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #718c78,
+      #315b46
+    );
+
+  box-shadow:
+    0 0 10px
+    rgba(93, 155, 114, 0.2);
+
+  transform-origin: left;
+
+  animation:
+    confidence-grow 1s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+@keyframes confidence-grow {
+  from {
+    width: 0 !important;
+  }
+}
+
+/* =========================================================
+   STATE BADGE
+   ========================================================= */
+
+.decision-state {
+  position: absolute;
+
+  right: 22px;
+  bottom: 21px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #839087;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 6px;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+}
+
+.decision-state-dot {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #718c78;
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.decision-card-loading .decision-action {
+  color: #87928b;
+}
+
+.decision-card-loading .decision-action-dot {
+  background: #c7a96b;
+
+  animation:
+    decision-loading 900ms ease-in-out infinite;
+}
+
+@keyframes decision-loading {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .decision-card {
+    min-height: auto;
+    padding: 20px;
+    border-radius: 19px;
+  }
+
+  .decision-card-title {
+    font-size: 29px;
+  }
+
+  .decision-command {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .decision-water {
+    min-width: 0;
+
+    padding-top: 13px;
+    padding-left: 0;
+
+    border-top: 1px solid
+      rgba(16, 38, 29, 0.08);
+
+    border-left: 0;
+
+    text-align: left;
+  }
+
+  .decision-card-footer {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+  .decision-metric {
+    padding: 10px;
+  }
+
+  .decision-state {
+    position: static;
+
+    margin-top: 13px;
+  }
+}
+
+@media (max-width: 420px) {
+  .decision-card-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .decision-metric {
+    min-height: auto;
+  }
+
+  .decision-ai-icon {
+    width: 38px;
+    height: 38px;
+  }
+}

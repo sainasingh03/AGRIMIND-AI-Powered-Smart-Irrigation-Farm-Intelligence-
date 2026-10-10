@@ -1,0 +1,1622 @@
+/* ==========================================================
+   AGRIMIND — LIVING INTELLIGENCE
+   Premium, responsive agricultural AI dashboard
+   Unified frontend design system
+   ========================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+/* -------------------- DESIGN TOKENS -------------------- */
+
+:root {
+  color-scheme: light;
+
+  --agri-forest: #10271e;
+  --agri-forest-2: #1d4835;
+  --agri-forest-3: #2d6249;
+  --agri-sage: #839986;
+  --agri-mint: #e3ece3;
+  --agri-cream: #f5f3eb;
+  --agri-paper: #fcfbf7;
+  --agri-white: #ffffff;
+  --agri-text: #17271f;
+  --agri-muted: #7a8980;
+  --agri-gold: #c5a66b;
+  --agri-border: rgba(25, 53, 39, 0.105);
+  --agri-border-dark: rgba(25, 53, 39, 0.17);
+  --agri-red: #b95e4b;
+  --agri-green: #397650;
+
+  --agri-shadow-sm:
+    0 3px 12px rgba(20, 43, 31, 0.035);
+
+  --agri-shadow:
+    0 12px 36px rgba(20, 43, 31, 0.055);
+
+  --agri-shadow-lg:
+    0 24px 70px rgba(20, 43, 31, 0.085);
+
+  --agri-radius-sm: 12px;
+  --agri-radius: 20px;
+  --agri-radius-lg: 28px;
+
+  --agri-nav-height: 76px;
+
+  font-family: "Manrope", sans-serif;
+  color: var(--agri-text);
+  background: var(--agri-cream);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* -------------------- RESET -------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--agri-nav-height) + 20px);
+  background: var(--agri-cream);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+
+  color: var(--agri-text);
+
+  background:
+    radial-gradient(
+      ellipse at 7% 10%,
+      rgba(131, 153, 134, 0.105),
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 95% 24%,
+      rgba(197, 166, 107, 0.075),
+      transparent 28%
+    ),
+    var(--agri-cream);
+
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+#root {
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+img {
+  display: block;
+}
+
+::selection {
+  color: white;
+  background: var(--agri-forest-2);
+}
+
+:focus-visible {
+  outline: 3px solid rgba(59, 117, 81, 0.5);
+  outline-offset: 3px;
+}
+
+/* -------------------- TYPOGRAPHY -------------------- */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  color: var(--agri-forest);
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.045em;
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5.5vw, 5.6rem);
+}
+
+h2 {
+  font-size: clamp(1.55rem, 2.8vw, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+}
+
+p {
+  margin-top: 0;
+}
+
+small {
+  font-size: 0.78rem;
+}
+
+code,
+pre,
+.telemetry-value,
+.metric-value,
+.metric-number,
+.data-value,
+.state-id {
+  font-family: "Space Grotesk", monospace;
+}
+
+hr {
+  height: 1px;
+  border: 0;
+  background: var(--agri-border);
+}
+
+/* -------------------- APP SHELL -------------------- */
+
+.app {
+  min-height: 100vh;
+}
+
+main {
+  width: 100%;
+  min-width: 0;
+  animation: agri-page-enter 360ms ease both;
+}
+
+main > section {
+  min-width: 0;
+}
+
+@keyframes agri-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -------------------- NAVIGATION -------------------- */
+
+nav {
+  z-index: 1000;
+}
+
+.navbar,
+.navbar-shell,
+.nav-shell,
+.topbar,
+.app-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+
+  min-height: var(--agri-nav-height);
+  padding: 12px clamp(18px, 3.5vw, 56px);
+
+  border-bottom: 1px solid rgba(25, 53, 39, 0.075);
+
+  background: rgba(252, 251, 247, 0.9);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.navbar a,
+.nav-shell a,
+.app-navbar a {
+  transition:
+    color 180ms ease,
+    background 180ms ease;
+}
+
+.navbar a:hover,
+.nav-shell a:hover,
+.app-navbar a:hover {
+  color: var(--agri-forest-3);
+}
+
+nav button,
+.navbar button,
+.nav-shell button,
+.app-navbar button {
+  border-radius: 12px;
+}
+
+.navbar a.active,
+.nav-shell a.active,
+.app-navbar a.active {
+  color: var(--agri-forest);
+  background: rgba(131, 153, 134, 0.15);
+}
+
+/* -------------------- PAGE LAYOUT -------------------- */
+
+.dashboard-page,
+.field-page,
+.intelligence-page,
+.reports-page {
+  width: min(100% - 64px, 1580px);
+  margin-inline: auto;
+}
+
+.dashboard-page > section,
+.field-page > section,
+.intelligence-page > section,
+.reports-page > section {
+  margin-bottom: clamp(26px, 4vw, 56px);
+}
+
+.dashboard-hero,
+.intelligence-hero,
+.reports-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  padding: clamp(30px, 6vw, 88px);
+
+  border: 1px solid rgba(25, 53, 39, 0.075);
+  border-radius: var(--agri-radius-lg);
+
+  background:
+    radial-gradient(
+      circle at 85% 22%,
+      rgba(131, 153, 134, 0.18),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 97% 85%,
+      rgba(197, 166, 107, 0.11),
+      transparent 30%
+    ),
+    var(--agri-paper);
+
+  box-shadow: var(--agri-shadow-sm);
+}
+
+.dashboard-hero::after,
+.intelligence-hero::after {
+  position: absolute;
+  z-index: -1;
+  top: -100px;
+  right: -80px;
+
+  width: clamp(200px, 35vw, 480px);
+  aspect-ratio: 1;
+
+  border: 1px solid rgba(29, 72, 53, 0.07);
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 0 35px rgba(29, 72, 53, 0.018),
+    0 0 0 75px rgba(29, 72, 53, 0.015);
+
+  content: "";
+  pointer-events: none;
+}
+
+.dashboard-hero h1,
+.intelligence-hero h1,
+.reports-hero h1 {
+  max-width: 900px;
+  margin: 20px 0 22px;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3.4rem, 7.5vw, 7.5rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.065em;
+}
+
+.dashboard-hero h1 em,
+.intelligence-hero h1 em,
+.reports-hero h1 em {
+  color: var(--agri-forest-3);
+  font-weight: 500;
+}
+
+.dashboard-hero p,
+.intelligence-hero p,
+.reports-hero p {
+  max-width: 700px;
+  color: var(--agri-muted);
+  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  line-height: 1.9;
+}
+
+.eyebrow,
+.section-eyebrow,
+.dashboard-eyebrow,
+.intelligence-eyebrow,
+.reports-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+
+  color: var(--agri-forest-2);
+
+  font-family: "Space Grotesk", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before,
+.section-eyebrow::before {
+  width: 20px;
+  height: 1px;
+  background: var(--agri-gold);
+  content: "";
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.section-heading h2 {
+  margin-bottom: 8px;
+}
+
+.section-heading p {
+  margin-bottom: 0;
+  color: var(--agri-muted);
+}
+
+/* -------------------- UNIVERSAL CARDS -------------------- */
+
+.metric-card,
+.metric-card *,
+.decision-card,
+.decision-card *,
+.policy-brain,
+.policy-brain *,
+.system-status,
+.system-status *,
+.mdp-flow,
+.mdp-flow *,
+.sensor-simulator,
+.sensor-simulator *,
+.intelligence-card,
+.report-stat-card,
+.report-decision-card,
+.report-model-card,
+.environment-report,
+.history-section,
+.report-header-card,
+.report-footer-card,
+.field-map-card,
+.field-telemetry-card,
+.field-info-card,
+.dashboard-panel {
+  min-width: 0;
+}
+
+.metric-card,
+.metric-card-wrapper,
+.dashboard-card,
+.intelligence-card,
+.report-stat-card,
+.report-decision-card,
+.report-model-card,
+.environment-report,
+.history-section,
+.report-header-card,
+.report-footer-card,
+.field-map-card,
+.field-telemetry-card,
+.field-info-card,
+.dashboard-panel,
+.policy-brain,
+.system-status,
+.mdp-flow,
+.sensor-simulator,
+.decision-card {
+  border: 1px solid var(--agri-border);
+  border-radius: var(--agri-radius);
+  background: rgba(252, 251, 247, 0.94);
+  box-shadow: var(--agri-shadow-sm);
+
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+.metric-card:hover,
+.dashboard-card:hover,
+.intelligence-card:hover,
+.report-stat-card:hover,
+.field-info-card:hover {
+  border-color: var(--agri-border-dark);
+  box-shadow: var(--agri-shadow);
+}
+
+.metric-card,
+.dashboard-card,
+.intelligence-card,
+.report-stat-card {
+  padding: clamp(18px, 2vw, 28px);
+}
+
+.metric-card span,
+.dashboard-card > span,
+.report-stat-card > span {
+  color: var(--agri-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.metric-card strong,
+.report-stat-card > strong {
+  display: block;
+  margin: 10px 0;
+
+  color: var(--agri-forest);
+
+  font-family: "Space Grotesk", monospace;
+  font-size: clamp(1.6rem, 2.6vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.06em;
+}
+
+.metric-card small,
+.report-stat-card small {
+  color: var(--agri-muted);
+}
+
+/* -------------------- GRID SYSTEM -------------------- */
+
+.metrics-grid,
+.metric-grid,
+.dashboard-metrics,
+.report-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.dashboard-grid,
+.field-grid,
+.intelligence-grid,
+.report-main-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 26px);
+}
+
+.report-main-grid {
+  align-items: stretch;
+}
+
+.report-decision-card,
+.report-model-card {
+  padding: clamp(20px, 3vw, 34px);
+}
+
+.report-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.report-card-heading > div > span {
+  color: var(--agri-muted);
+  font-family: "Space Grotesk", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.report-card-heading h2 {
+  margin: 7px 0 0;
+  font-size: 1.25rem;
+}
+
+.report-card-heading > svg {
+  flex: 0 0 auto;
+  color: var(--agri-forest-2);
+}
+
+/* -------------------- BUTTONS -------------------- */
+
+button,
+.btn,
+.button,
+.primary-button,
+.secondary-button,
+.report-download,
+.report-refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  min-height: 42px;
+  padding: 10px 16px;
+
+  border: 1px solid var(--agri-border-dark);
+  border-radius: 12px;
+
+  background: var(--agri-paper);
+  color: var(--agri-forest);
+
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+button:hover,
+.btn:hover,
+.button:hover,
+.secondary-button:hover,
+.report-refresh:hover {
+  border-color: rgba(29, 72, 53, 0.3);
+  background: #edf2e9;
+}
+
+button:active,
+.btn:active,
+.button:active {
+  transform: translateY(1px);
+}
+
+.primary-button,
+.report-download {
+  border-color: var(--agri-forest);
+  background: var(--agri-forest);
+  color: var(--agri-paper);
+}
+
+.primary-button:hover,
+.report-download:hover {
+  border-color: var(--agri-forest-2);
+  background: var(--agri-forest-2);
+  color: white;
+  box-shadow: 0 8px 24px rgba(16, 39, 30, 0.15);
+}
+
+.dashboard-hero a,
+.intelligence-hero a,
+.hero-actions a,
+.dashboard-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 44px;
+  padding: 11px 17px;
+
+  border: 1px solid var(--agri-border-dark);
+  border-radius: 12px;
+
+  background: var(--agri-paper);
+  color: var(--agri-forest);
+
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.dashboard-hero a:hover,
+.intelligence-hero a:hover,
+.hero-actions a:hover,
+.dashboard-actions a:hover {
+  background: var(--agri-mint);
+  transform: translateY(-1px);
+}
+
+/* -------------------- METRIC ICONS -------------------- */
+
+.metric-icon,
+.report-stat-icon,
+.report-farm-icon,
+.report-footer-icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid rgba(29, 72, 53, 0.09);
+  border-radius: 13px;
+
+  background: var(--agri-mint);
+  color: var(--agri-forest-2);
+}
+
+.report-stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.report-stat-card > strong {
+  margin: 0;
+}
+
+.report-stat-card > strong small {
+  margin-left: 4px;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+}
+
+.report-stat-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.report-stat-bottom .up,
+.report-stat-bottom .down {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.report-stat-bottom .up {
+  color: var(--agri-green);
+}
+
+.report-stat-bottom .down {
+  color: var(--agri-red);
+}
+
+/* -------------------- DECISION ENGINE -------------------- */
+
+.decision-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(24px, 3.5vw, 46px);
+
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      rgba(131, 153, 134, 0.19),
+      transparent 36%
+    ),
+    var(--agri-paper);
+}
+
+.decision-card h2,
+.decision-card h3 {
+  color: var(--agri-forest);
+}
+
+.decision-card p {
+  color: var(--agri-muted);
+}
+
+.decision-card-safe {
+  border-color: rgba(57, 118, 80, 0.22);
+}
+
+.decision-card-critical {
+  border-color: rgba(185, 94, 75, 0.25);
+}
+
+.decision-card-active {
+  border-color: rgba(29, 72, 53, 0.2);
+}
+
+.decision-card-neutral {
+  border-color: var(--agri-border);
+}
+
+.decision-card button {
+  margin-top: 12px;
+}
+
+.report-decision-action {
+  padding: 22px;
+  border-radius: 16px;
+  background: #f0f3eb;
+}
+
+.report-decision-action > span,
+.report-decision-details span,
+.model-row > span,
+.environment-grid > div > span {
+  display: block;
+  color: var(--agri-muted);
+  font-family: "Space Grotesk", monospace;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.report-decision-action > strong {
+  display: block;
+  margin: 9px 0;
+  color: var(--agri-forest);
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  letter-spacing: -0.04em;
+}
+
+.report-decision-action p {
+  margin: 0;
+  color: var(--agri-muted);
+  font-size: 0.85rem;
+}
+
+.report-decision-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.report-decision-details > div {
+  padding: 15px;
+  border: 1px solid var(--agri-border);
+  border-radius: 13px;
+}
+
+.report-decision-details strong {
+  display: block;
+  margin-top: 7px;
+  font-family: "Space Grotesk", monospace;
+  font-size: 1.2rem;
+}
+
+/* -------------------- MODEL AND POLICY -------------------- */
+
+.model-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 14px 0;
+  border-bottom: 1px solid var(--agri-border);
+}
+
+.model-row strong {
+  text-align: right;
+  font-size: 0.82rem;
+}
+
+.model-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--agri-green);
+}
+
+.model-live i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4e9a65;
+  box-shadow: 0 0 0 4px rgba(78, 154, 101, 0.12);
+}
+
+.model-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #f1f3ec;
+}
+
+.model-note svg {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  color: var(--agri-forest-2);
+}
+
+.model-note p {
+  margin: 0;
+  color: var(--agri-muted);
+  font-size: 0.79rem;
+}
+
+/* -------------------- ENVIRONMENT REPORT -------------------- */
+
+.environment-report,
+.history-section {
+  padding: clamp(20px, 3vw, 34px);
+}
+
+.report-section-title {
+  margin-bottom: 22px;
+}
+
+.report-section-title > span,
+.report-section-title > div > span {
+  color: var(--agri-muted);
+  font-family: "Space Grotesk", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.report-section-title h2 {
+  margin: 8px 0 0;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+}
+
+.environment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.environment-grid > div {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--agri-border);
+  border-radius: 15px;
+  background: rgba(245, 243, 235, 0.6);
+}
+
+.environment-grid strong {
+  display: block;
+  margin-top: 10px;
+  color: var(--agri-forest);
+  font-family: "Space Grotesk", monospace;
+  font-size: clamp(1.15rem, 2vw, 1.7rem);
+}
+
+/* -------------------- HISTORY TABLE -------------------- */
+
+.history-title {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.history-count {
+  padding: 6px 10px;
+  border: 1px solid var(--agri-border);
+  border-radius: 999px;
+  color: var(--agri-muted);
+  font-size: 0.73rem;
+}
+
+.history-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.history-table-head,
+.history-row {
+  display: grid;
+  grid-template-columns:
+    minmax(100px, 0.8fr)
+    minmax(100px, 0.8fr)
+    minmax(150px, 1.4fr)
+    minmax(80px, 0.6fr)
+    minmax(100px, 0.8fr);
+  align-items: center;
+  gap: 14px;
+  min-width: 620px;
+  padding: 15px 10px;
+}
+
+.history-table-head {
+  border-bottom: 1px solid var(--agri-border);
+  color: var(--agri-muted);
+  font-family: "Space Grotesk", monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.history-row {
+  border-bottom: 1px solid var(--agri-border);
+  font-size: 0.79rem;
+}
+
+.history-row:last-child {
+  border-bottom: 0;
+}
+
+.history-row > strong {
+  color: var(--agri-forest-2);
+  font-size: 0.76rem;
+}
+
+.history-confidence {
+  font-family: "Space Grotesk", monospace;
+  font-weight: 600;
+}
+
+.empty-history {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 42px 20px;
+  border: 1px dashed var(--agri-border-dark);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.empty-history svg {
+  color: var(--agri-sage);
+}
+
+.empty-history strong {
+  font-size: 1rem;
+}
+
+.empty-history p {
+  max-width: 400px;
+  margin: 0;
+  color: var(--agri-muted);
+  font-size: 0.85rem;
+}
+
+/* -------------------- REPORT FOOTER -------------------- */
+
+.report-footer-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: clamp(22px, 4vw, 42px);
+
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      rgba(131, 153, 134, 0.15),
+      transparent 40%
+    ),
+    var(--agri-paper);
+}
+
+.report-footer-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.report-footer-card > div:last-child {
+  min-width: 0;
+}
+
+.report-footer-card span {
+  color: var(--agri-muted);
+  font-family: "Space Grotesk", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
+.report-footer-card h2 {
+  max-width: 700px;
+  margin: 12px 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.9rem, 4vw, 3.2rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
+
+.report-footer-card p {
+  max-width: 800px;
+  margin-bottom: 0;
+  color: var(--agri-muted);
+  font-size: 0.85rem;
+  line-height: 1.9;
+}
+
+/* -------------------- FIELD MAP -------------------- */
+
+.leaflet-container {
+  width: 100%;
+  min-height: 320px;
+  font-family: "Manrope", sans-serif;
+  background: #e3e9df;
+}
+
+.field-map-card .leaflet-container,
+.field-map .leaflet-container,
+.field-map-container .leaflet-container {
+  min-height: 420px;
+  border-radius: var(--agri-radius);
+}
+
+.leaflet-control-zoom {
+  overflow: hidden;
+  border: 1px solid var(--agri-border) !important;
+  border-radius: 10px !important;
+  box-shadow: var(--agri-shadow-sm) !important;
+}
+
+.leaflet-control-zoom a {
+  color: var(--agri-forest) !important;
+  background: var(--agri-paper) !important;
+  border-color: var(--agri-border) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--agri-mint) !important;
+}
+
+.leaflet-control-attribution {
+  border-radius: 7px 0 0 0;
+  background: rgba(252, 251, 247, 0.9) !important;
+  font-size: 9px !important;
+}
+
+/* -------------------- INPUTS / DIGITAL TWIN -------------------- */
+
+input[type="range"] {
+  width: 100%;
+  min-height: 22px;
+  accent-color: var(--agri-forest-2);
+  cursor: pointer;
+}
+
+input[type="number"],
+input[type="text"],
+input[type="search"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid var(--agri-border-dark);
+  border-radius: 10px;
+  outline: none;
+  background: var(--agri-paper);
+  color: var(--agri-text);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--agri-sage);
+  box-shadow: 0 0 0 3px rgba(131, 153, 134, 0.14);
+}
+
+input[type="range"]:focus-visible {
+  outline-offset: 5px;
+}
+
+.sensor-simulator {
+  padding: clamp(20px, 3vw, 34px);
+}
+
+.sensor-simulator label {
+  color: var(--agri-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.sensor-simulator h2,
+.sensor-simulator h3 {
+  margin-bottom: 10px;
+}
+
+.sensor-simulator p {
+  color: var(--agri-muted);
+}
+
+.sensor-simulator button {
+  margin: 4px;
+}
+
+.sensor-simulator button[aria-pressed="true"],
+.sensor-simulator button.active {
+  border-color: var(--agri-forest-2);
+  background: var(--agri-mint);
+  color: var(--agri-forest);
+}
+
+/* -------------------- STATUS / TELEMETRY -------------------- */
+
+.system-status {
+  padding: clamp(20px, 2.5vw, 30px);
+}
+
+.system-status h2,
+.system-status h3 {
+  margin-bottom: 12px;
+}
+
+.system-status p {
+  color: var(--agri-muted);
+}
+
+.system-status [class*="status"],
+.system-status [class*="source"] {
+  overflow-wrap: anywhere;
+}
+
+.status-live,
+.system-status .live,
+.system-status .connected {
+  color: var(--agri-green);
+}
+
+.status-offline,
+.system-status .offline {
+  color: var(--agri-red);
+}
+
+/* -------------------- MDP / TIMELINE -------------------- */
+
+.mdp-flow {
+  padding: clamp(20px, 3vw, 36px);
+}
+
+.mdp-flow h2 {
+  margin-bottom: 12px;
+}
+
+.mdp-flow p {
+  color: var(--agri-muted);
+}
+
+.decision-timeline,
+.timeline-list {
+  position: relative;
+}
+
+.decision-timeline > *,
+.timeline-list > * {
+  min-width: 0;
+}
+
+.decision-timeline h3,
+.timeline-list h3 {
+  margin-bottom: 8px;
+}
+
+.decision-timeline p,
+.timeline-list p {
+  color: var(--agri-muted);
+}
+
+.timeline-action,
+.timeline-safe,
+.timeline-critical {
+  overflow-wrap: anywhere;
+}
+
+/* -------------------- INTELLIGENCE PAGE -------------------- */
+
+.intelligence-page .intelligence-card,
+.intelligence-page .policy-brain {
+  padding: clamp(20px, 3vw, 34px);
+}
+
+.intelligence-page .action-bar,
+.intelligence-page [class*="action-bar"] {
+  overflow: hidden;
+  border-radius: 9px;
+}
+
+.intelligence-page [class*="progress"],
+.intelligence-page [class*="bar"] {
+  max-width: 100%;
+}
+
+.intelligence-page button {
+  max-width: 100%;
+}
+
+.intelligence-page p {
+  overflow-wrap: anywhere;
+}
+
+/* -------------------- FIELD PAGE -------------------- */
+
+.field-page .field-info-card,
+.field-page .field-telemetry-card {
+  padding: clamp(18px, 2.5vw, 28px);
+}
+
+.field-page .field-info-card h2,
+.field-page .field-telemetry-card h2 {
+  margin-bottom: 12px;
+}
+
+.field-page .field-info-card p,
+.field-page .field-telemetry-card p {
+  color: var(--agri-muted);
+}
+
+/* -------------------- FOOTER -------------------- */
+
+footer {
+  color: var(--agri-muted);
+}
+
+footer a {
+  color: var(--agri-forest-2);
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* -------------------- LOADING / ERROR STATES -------------------- */
+
+.loading,
+.loading-state,
+.error-state,
+.empty-state {
+  padding: 22px;
+  border: 1px solid var(--agri-border);
+  border-radius: 15px;
+  background: var(--agri-paper);
+}
+
+.error-state {
+  border-color: rgba(185, 94, 75, 0.25);
+  color: var(--agri-red);
+}
+
+@keyframes agri-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.report-spin,
+.spin {
+  animation: agri-spin 900ms linear infinite;
+}
+
+/* -------------------- ACCESSIBILITY -------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* -------------------- TABLET -------------------- */
+
+@media (max-width: 1050px) {
+  :root {
+    --agri-nav-height: 68px;
+  }
+
+  .dashboard-page,
+  .field-page,
+  .intelligence-page,
+  .reports-page {
+    width: min(100% - 36px, 1000px);
+  }
+
+  .metrics-grid,
+  .metric-grid,
+  .dashboard-metrics,
+  .report-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-hero,
+  .intelligence-hero,
+  .reports-hero {
+    padding: clamp(26px, 5vw, 56px);
+  }
+
+  .field-map-card .leaflet-container,
+  .field-map .leaflet-container,
+  .field-map-container .leaflet-container {
+    min-height: 360px;
+  }
+}
+
+/* -------------------- MOBILE -------------------- */
+
+@media (max-width: 700px) {
+  body {
+    font-size: 13px;
+  }
+
+  .dashboard-page,
+  .field-page,
+  .intelligence-page,
+  .reports-page {
+    width: calc(100% - 24px);
+  }
+
+  .dashboard-page > section,
+  .field-page > section,
+  .intelligence-page > section,
+  .reports-page > section {
+    margin-bottom: 24px;
+  }
+
+  .dashboard-hero,
+  .intelligence-hero,
+  .reports-hero {
+    padding: 26px 20px;
+    border-radius: 21px;
+  }
+
+  .dashboard-hero h1,
+  .intelligence-hero h1,
+  .reports-hero h1 {
+    margin-top: 18px;
+    font-size: clamp(3rem, 14vw, 5rem);
+    line-height: 0.95;
+  }
+
+  .dashboard-hero p,
+  .intelligence-hero p,
+  .reports-hero p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+
+  .metrics-grid,
+  .metric-grid,
+  .dashboard-metrics,
+  .report-summary,
+  .dashboard-grid,
+  .field-grid,
+  .intelligence-grid,
+  .report-main-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .metric-card,
+  .dashboard-card,
+  .intelligence-card,
+  .report-stat-card {
+    padding: 20px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .section-heading h2 {
+    font-size: 1.7rem;
+  }
+
+  .environment-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .environment-grid > div {
+    padding: 14px;
+  }
+
+  .environment-grid > div > span {
+    font-size: 0.6rem;
+  }
+
+  .report-decision-card,
+  .report-model-card,
+  .environment-report,
+  .history-section,
+  .report-header-card,
+  .report-footer-card {
+    padding: 19px;
+    border-radius: 18px;
+  }
+
+  .report-header-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .report-header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .report-header-actions button {
+    flex: 1 1 auto;
+  }
+
+  .report-footer-card {
+    gap: 13px;
+  }
+
+  .report-footer-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .report-footer-card h2 {
+    font-size: 2rem;
+  }
+
+  .report-decision-details {
+    gap: 9px;
+  }
+
+  .history-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .field-map-card .leaflet-container,
+  .field-map .leaflet-container,
+  .field-map-container .leaflet-container {
+    min-height: 310px;
+  }
+
+  .leaflet-container {
+    min-height: 280px;
+  }
+
+  .model-row {
+    align-items: flex-start;
+  }
+
+  .model-row strong {
+    max-width: 60%;
+    overflow-wrap: anywhere;
+  }
+
+  button,
+  .btn,
+  .button {
+    min-height: 42px;
+  }
+}
+
+/* -------------------- SMALL MOBILE -------------------- */
+
+@media (max-width: 390px) {
+  .dashboard-page,
+  .field-page,
+  .intelligence-page,
+  .reports-page {
+    width: calc(100% - 18px);
+  }
+
+  .dashboard-hero,
+  .intelligence-hero,
+  .reports-hero {
+    padding: 22px 16px;
+  }
+
+  .dashboard-hero h1,
+  .intelligence-hero h1,
+  .reports-hero h1 {
+    font-size: 2.8rem;
+  }
+
+  .environment-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .report-decision-details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .report-stat-card > strong {
+    font-size: 1.8rem;
+  }
+}
+/* AGRIMIND FINAL RESPONSIVE PRODUCT LAYER */
+:root{--agri-forest:#103b2e;--agri-forest-2:#1d6049;--agri-forest-3:#34785a;--agri-paper:#fffdf7;--agri-muted:#718078;--agri-border:rgba(24,63,47,.13);--agri-radius-lg:24px;--agri-shadow-sm:0 10px 32px rgba(18,49,35,.07)}
+body{background:#f5f4ed;color:#17372b}
+.app{min-height:100vh}
+.dashboard-page,.field-page,.intelligence-page,.reports-page{width:min(100% - 56px,1540px);margin:26px auto 48px}
+.dashboard-page>section{margin-bottom:30px}
+.dashboard-hero{min-height:370px;padding:clamp(28px,4vw,62px);display:flex;align-items:center;background:linear-gradient(90deg,rgba(9,47,35,.88) 0%,rgba(10,55,39,.66) 46%,rgba(10,55,39,.05) 100%),url('./assets/hero.png') center 55%/cover no-repeat;border:0;border-radius:26px;color:#fff;box-shadow:0 18px 48px rgba(19,57,41,.14)}
+.dashboard-hero::after{display:none}.dashboard-hero-grid{width:100%;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(270px,.7fr);align-items:center;gap:28px}.dashboard-hero-copy{max-width:740px}.dashboard-eyebrow{color:#e6f1e6;letter-spacing:.13em;font-size:11px}.dashboard-live-pill{display:inline-flex;align-items:center;padding:5px 10px;border-radius:99px;background:rgba(230,246,230,.15);color:#fff;font-size:10px}.dashboard-hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(42px,5.2vw,76px);line-height:.99;letter-spacing:-.05em;margin:24px 0 18px;color:#fff}.dashboard-hero h1 em{color:#d5e9d5}.dashboard-hero p{color:rgba(255,255,255,.85);max-width:600px;font-size:15px;line-height:1.8}.dashboard-hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}.dashboard-hero a{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:13px 18px;font-weight:700;font-size:13px}.dashboard-primary-button{background:#f1f6e9;color:#103b2e!important}.dashboard-secondary-button{background:rgba(255,255,255,.12);color:white!important;border:1px solid rgba(255,255,255,.35)}.dashboard-hero-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:27px}.dashboard-hero-meta>div{display:grid;gap:4px}.dashboard-hero-meta span,.dashboard-floating-signal span{font-size:9px;letter-spacing:.12em;color:rgba(255,255,255,.7)}.dashboard-hero-meta strong{font-size:12px;color:white}.dashboard-ai-visual{position:relative;min-height:260px;display:flex;align-items:center;justify-content:center}.dashboard-ai-orb{width:150px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,#e2f1d7,#73a982 48%,#164a36 75%);box-shadow:0 0 0 18px rgba(255,255,255,.08),0 0 70px rgba(219,241,196,.26);animation:agri-float 6s ease-in-out infinite}.dashboard-ai-orb-inner{width:84px;aspect-ratio:1;border:1px solid rgba(255,255,255,.6);border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(12,67,47,.28)}.dashboard-orbit{position:absolute;width:215px;height:215px;border:1px solid rgba(255,255,255,.38);border-radius:50%}.orbit-two{width:270px;height:270px;border-color:rgba(255,255,255,.2)}.orbit-three{width:320px;height:320px;border-color:rgba(255,255,255,.12)}.dashboard-ai-label,.dashboard-floating-signal{position:absolute;display:grid;gap:5px;padding:11px 14px;border:1px solid rgba(255,255,255,.3);border-radius:13px;background:rgba(12,48,36,.62);backdrop-filter:blur(12px);color:white}.dashboard-ai-label{bottom:4px;left:calc(50% - 72px);min-width:145px}.dashboard-ai-label span{font-size:9px;letter-spacing:.1em;color:#c7ddc9}.dashboard-ai-label strong{font-size:13px}.signal-one{top:6px;left:0}.signal-two{right:0;top:42%}.signal-three{left:4px;bottom:18px}.dashboard-floating-signal span{color:#d1e1d3}.dashboard-floating-signal strong{font-size:12px}
+.dashboard-metrics-section,.dashboard-section{padding:0}.dashboard-metrics-header{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin:0 0 17px}.dashboard-metrics-header>div>span,.dashboard-section-heading>div>span{font-size:10px;letter-spacing:.14em;font-weight:800;color:#71877a}.dashboard-metrics-header h2,.dashboard-section-heading h2{font-size:clamp(22px,2vw,30px);margin:7px 0 0;color:#173b2b}.dashboard-metrics-header h2 em{font-family:'Playfair Display',serif;font-weight:500}.dashboard-refresh-button,.dashboard-section-link{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--agri-border);border-radius:12px;background:#fffdf8;color:#17412f;padding:11px 14px;font-size:12px;font-weight:700}.dashboard-metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.dashboard-metric{min-width:0;padding:19px;border:1px solid var(--agri-border);border-radius:19px;background:linear-gradient(145deg,#fffdf9,#f8faf3);box-shadow:0 6px 20px rgba(19,52,38,.035);transition:transform .2s,box-shadow .2s}.dashboard-metric:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(19,52,38,.08)}.dashboard-metric-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.dashboard-metric-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:15px;background:#e2f0e2;color:#1d6b4b}.dashboard-metric-status{display:flex;align-items:center;gap:6px;border-radius:99px;background:#edf5e9;padding:5px 8px;font-size:9px;color:#36724d}.dashboard-metric-status i{width:6px;height:6px;border-radius:50%;background:#4c9b69}.dashboard-metric-label{display:block;color:#718078;font-size:11px;font-weight:700;letter-spacing:.035em}.dashboard-metric-value{display:flex;align-items:baseline;gap:4px;margin:5px 0}.dashboard-metric-value strong{font-family:'Playfair Display',serif;font-size:32px;letter-spacing:-.04em;color:#173b2b}.dashboard-metric-value small{font-size:13px;color:#718078}.dashboard-metric-detail{display:block;font-size:10px;color:#8a958d;line-height:1.5}
+.dashboard-section{margin-top:30px}.dashboard-section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:17px}.dashboard-section-heading h2{margin:7px 0 5px}.dashboard-section-heading p{margin:0;color:#7c8980;font-size:12px;line-height:1.7;max-width:650px}.dashboard-field-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.8fr);gap:16px}.dashboard-field-map-shell,.dashboard-field-grid>*,.dashboard-section>.decision-card,.dashboard-section>.mdp-flow,.dashboard-section>.policy-brain,.dashboard-section>.sensor-simulator,.dashboard-section>.decision-timeline{min-width:0;border-radius:21px;overflow:hidden}.dashboard-closing{display:flex;align-items:center;gap:18px;padding:25px 28px;border-radius:22px;background:linear-gradient(110deg,#e4eee0,#fbf5e8 60%,#f7e9e8);border:1px solid rgba(25,69,49,.1)}.dashboard-closing h2{font-family:'Playfair Display',serif;font-size:clamp(23px,3vw,36px);line-height:1.12;margin:7px 0;color:#173b2b}.dashboard-closing p{font-size:12px;line-height:1.7;color:#6e7e73;margin:0;max-width:690px}.dashboard-closing-icon{flex:none;display:grid;place-items:center;width:50px;height:50px;border-radius:17px;background:#174a36;color:white}.dashboard-closing-status{margin-left:auto;min-width:160px;font-size:10px;color:#53705e}.dashboard-closing-status>div{display:flex;align-items:center;gap:7px;margin-bottom:7px}.dashboard-closing-status i{width:7px;height:7px;border-radius:50%;background:#2f9a5c}.dashboard-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 4px 0;color:#7e8c82}.dashboard-footer-brand{display:flex;align-items:center;gap:10px}.dashboard-footer-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#173b2b;color:white}.dashboard-footer-brand>div:last-child{display:grid;gap:2px}.dashboard-footer-brand strong{font-size:12px;letter-spacing:.14em}.dashboard-footer-brand span,.dashboard-footer-right{font-size:9px;letter-spacing:.08em}.dashboard-footer-right{display:flex;gap:16px;flex-wrap:wrap}
+@keyframes agri-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+/* Shared component polish */
+.decision-card,.system-status,.mdp-flow,.policy-brain,.sensor-simulator,.decision-timeline,.field-map-card,.intelligence-card,.report-card{border:1px solid var(--agri-border)!important;border-radius:22px!important;background:rgba(255,253,247,.94)!important;box-shadow:var(--agri-shadow-sm)!important}
+button:focus-visible,a:focus-visible{outline:3px solid rgba(69,139,94,.45);outline-offset:3px}
+@media(max-width:1100px){.dashboard-page,.field-page,.intelligence-page,.reports-page{width:min(100% - 32px,1540px)}.dashboard-hero-grid{grid-template-columns:minmax(0,1fr) 260px}.dashboard-metrics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-ai-orb{width:115px}.dashboard-orbit{width:175px;height:175px}.orbit-two{width:220px;height:220px}.orbit-three{width:260px;height:260px}.dashboard-field-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.dashboard-page,.field-page,.intelligence-page,.reports-page{width:calc(100% - 24px);margin:14px auto 30px}.dashboard-hero{padding:25px 20px;min-height:0;background-position:center;background-image:linear-gradient(90deg,rgba(9,47,35,.9),rgba(10,55,39,.62)),url('./assets/hero.png')}.dashboard-hero-grid{grid-template-columns:1fr}.dashboard-ai-visual{min-height:230px;margin-top:10px}.dashboard-hero h1{font-size:clamp(40px,12vw,58px)}.dashboard-hero p{font-size:13px}.dashboard-hero-meta{gap:15px}.dashboard-metrics-header,.dashboard-section-heading{align-items:flex-start;flex-direction:column}.dashboard-metrics-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.dashboard-metric{padding:13px;border-radius:16px}.dashboard-metric-value strong{font-size:27px}.dashboard-metric-icon{width:35px;height:35px;border-radius:12px}.dashboard-metric-status{font-size:8px}.dashboard-section{margin-top:24px}.dashboard-closing{align-items:flex-start;padding:20px;flex-wrap:wrap}.dashboard-closing-status{margin-left:0;width:100%}.dashboard-footer{align-items:flex-start;flex-direction:column}.dashboard-footer-right{gap:9px}.dashboard-refresh-button{min-height:40px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+
+/* AGRIMIND interaction polish: scroll reveal, focus, and responsive safety */
+.agri-reveal{opacity:0;transform:translate3d(0,18px,0);transition:opacity .65s cubic-bezier(.2,.7,.2,1) var(--reveal-delay,0ms),transform .65s cubic-bezier(.2,.7,.2,1) var(--reveal-delay,0ms)}
+.agri-reveal.agri-revealed{opacity:1;transform:translate3d(0,0,0)}
+.app-page-transition{animation:agri-page-in .42s cubic-bezier(.2,.7,.2,1) both}
+@keyframes agri-page-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.dashboard-hero,.dashboard-metric,.dashboard-section,.dashboard-field-grid{will-change:opacity,transform}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(67,143,99,.45);outline-offset:3px}
+img{max-width:100%;height:auto}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.agri-reveal{opacity:1;transform:none}}
+@media(max-width:460px){.dashboard-metrics-grid{grid-template-columns:1fr}.dashboard-hero-meta{display:grid;grid-template-columns:1fr 1fr}.dashboard-ai-visual{overflow:hidden}.dashboard-floating-signal{max-width:130px}.dashboard-metric-value strong{font-size:25px}}

@@ -1,0 +1,572 @@
+ /* =========================================================
+   AGRIMIND — MDP FLOW
+   Observe → Classify → Evaluate → Decide  
+========================================================= */
+
+.mdp-flow {
+  position: relative;
+  padding: 30px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(16, 38, 29, 0.08);
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      circle at 95% 0%,
+      rgba(113, 140, 120, 0.1),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #fcfbf7,
+      #f5f2e9
+    );
+}
+
+.mdp-flow::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.65),
+      transparent 35%
+    );
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.mdp-flow-header {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 28px;
+}
+
+.mdp-flow-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 8px;
+
+  color: #718c78;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+}
+
+.mdp-flow-eyebrow span {
+  width: 18px;
+  height: 1px;
+
+  background: #718c78;
+}
+
+.mdp-flow-title {
+  margin: 0;
+
+  color: #10261d;
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+
+  line-height: 0.9;
+
+  letter-spacing: -0.04em;
+}
+
+.mdp-flow-description {
+  max-width: 390px;
+
+  margin: 0;
+
+  color: #7d8982;
+
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   PIPELINE
+   ========================================================= */
+
+.mdp-flow-steps {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 0;
+
+  border: 1px solid
+    rgba(16, 38, 29, 0.07);
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  background:
+    rgba(16, 38, 29, 0.045);
+}
+
+.mdp-flow-step {
+  position: relative;
+
+  min-height: 215px;
+
+  padding: 22px 19px;
+
+  background:
+    rgba(252, 251, 247, 0.9);
+
+  transition:
+    background 300ms ease,
+    transform 300ms ease;
+}
+
+.mdp-flow-step:not(:last-child) {
+  border-right: 1px solid
+    rgba(16, 38, 29, 0.07);
+}
+
+.mdp-flow-step:hover {
+  z-index: 3;
+
+  background: #ffffff;
+
+  transform: translateY(-3px);
+}
+
+/* =========================================================
+   STEP NUMBER
+   ========================================================= */
+
+.mdp-flow-step-number {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.mdp-flow-step-number span {
+  color: #a0aaa4;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+.mdp-flow-step-icon {
+  width: 32px;
+  height: 32px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid
+    rgba(113, 140, 120, 0.13);
+
+  border-radius: 9px;
+
+  color: #496753;
+
+  background: #edf3ed;
+}
+
+/* =========================================================
+   STEP TITLE
+   ========================================================= */
+
+.mdp-flow-step h3 {
+  margin: 0 0 7px;
+
+  color: #1c3027;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: -0.025em;
+}
+
+.mdp-flow-step p {
+  margin: 0;
+
+  color: #849089;
+
+  font-size: 9px;
+  line-height: 1.65;
+}
+
+/* =========================================================
+   DATA
+   ========================================================= */
+
+.mdp-flow-data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  margin-top: 16px;
+}
+
+.mdp-flow-chip {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 22px;
+
+  padding: 0 7px;
+
+  border: 1px solid
+    rgba(16, 38, 29, 0.07);
+
+  border-radius: 7px;
+
+  color: #627068;
+
+  background: #f6f5ef;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 6px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   ACTION SPACE
+   ========================================================= */
+
+.mdp-action-space {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 5px;
+
+  margin-top: 15px;
+}
+
+.mdp-action-option {
+  min-height: 29px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 4px;
+
+  border: 1px solid
+    rgba(16, 38, 29, 0.07);
+
+  border-radius: 7px;
+
+  color: #7e8982;
+
+  background: #f7f5ee;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 6px;
+  font-weight: 600;
+
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.mdp-action-option.selected {
+  color: #dce9df;
+
+  border-color: #315b46;
+
+  background: #1b4332;
+
+  box-shadow:
+    0 5px 14px
+    rgba(27, 67, 50, 0.14);
+}
+
+/* =========================================================
+   REWARD
+   ========================================================= */
+
+.mdp-reward-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-top: 15px;
+  padding: 10px 11px;
+
+  border-radius: 9px;
+
+  background:
+    rgba(220, 233, 223, 0.45);
+}
+
+.mdp-reward-box span {
+  color: #75837b;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 6px;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+}
+
+.mdp-reward-box strong {
+  color: #315b46;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 11px;
+}
+
+/* =========================================================
+   FINAL DECISION
+   ========================================================= */
+
+.mdp-decision {
+  margin-top: 16px;
+  padding: 13px;
+
+  border: 1px solid
+    rgba(93, 155, 114, 0.16);
+
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(220, 233, 223, 0.58),
+      rgba(252, 251, 247, 0.8)
+    );
+}
+
+.mdp-decision-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #819087;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 6px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+.mdp-decision strong {
+  display: block;
+
+  color: #1b4332;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.mdp-decision small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #87938c;
+
+  font-size: 7px;
+}
+
+/* =========================================================
+   CONNECTOR
+   ========================================================= */
+
+.mdp-connector {
+  position: absolute;
+
+  top: 50%;
+  right: -14px;
+
+  z-index: 5;
+
+  width: 28px;
+  height: 28px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid
+    rgba(16, 38, 29, 0.08);
+
+  border-radius: 50%;
+
+  color: #718c78;
+
+  background: #fcfbf7;
+
+  box-shadow:
+    0 5px 15px
+    rgba(16, 38, 29, 0.07);
+
+  transform: translateY(-50%);
+}
+
+.mdp-connector::after {
+  content: "";
+
+  position: absolute;
+
+  width: 13px;
+  height: 1px;
+
+  right: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(113, 140, 120, 0.35)
+    );
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.mdp-flow-footer {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-top: 18px;
+}
+
+.mdp-flow-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #8a958e;
+
+  font-size: 7px;
+}
+
+.mdp-flow-note svg {
+  color: #718c78;
+}
+
+.mdp-flow-algorithm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #52665a;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 7px;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+}
+
+.mdp-flow-algorithm i {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #5d9b72;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  .mdp-flow-steps {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .mdp-flow-step:nth-child(2) {
+    border-right: 0;
+  }
+
+  .mdp-flow-step:nth-child(-n + 2) {
+    border-bottom: 1px solid
+      rgba(16, 38, 29, 0.07);
+  }
+
+  .mdp-connector {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .mdp-flow {
+    padding: 20px;
+    border-radius: 19px;
+  }
+
+  .mdp-flow-header {
+    display: block;
+  }
+
+  .mdp-flow-description {
+    margin-top: 12px;
+  }
+
+  .mdp-flow-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .mdp-flow-step {
+    min-height: auto;
+  }
+
+  .mdp-flow-step:not(:last-child) {
+    border-right: 0;
+    border-bottom: 1px solid
+      rgba(16, 38, 29, 0.07);
+  }
+
+  .mdp-flow-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

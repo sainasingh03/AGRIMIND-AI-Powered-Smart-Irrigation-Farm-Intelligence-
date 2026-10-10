@@ -1,0 +1,90 @@
+:root {
+  --agri-forest: #173b2b;
+  --agri-forest-dark: #10291e;
+  --agri-sage: #77917b;
+  --agri-cream: #f5f4ed;
+  --agri-white: #fffef9;
+  --agri-text: #18271f;
+  --agri-muted: #758078;
+  --agri-gold: #c4a76b;
+  --agri-border: rgba(23, 59, 43, 0.12);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+main {
+  width: 100%;
+  animation: agri-enter 420ms ease both;
+}
+
+@keyframes agri-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+button {
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+button:active {
+  transform: scale(0.985);
+}
+
+button:disabled {
+  transform: none;
+}
+
+a {
+  transition: color 180ms ease;
+}
+
+.card,
+article {
+  min-width: 0;
+}
+
+.leaflet-control-zoom {
+  overflow: hidden;
+  border: 1px solid var(--agri-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(16, 41, 30, 0.1) !important;
+}
+
+.leaflet-control-zoom a {
+  color: var(--agri-forest) !important;
+  background: var(--agri-white) !important;
+  border-color: var(--agri-border) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--agri-mint) !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(255, 254, 249, 0.88) !important;
+  font-size: 9px !important;
+}
+
+@media (max-width: 768px) {
+  main {
+    overflow-wrap: anywhere;
+  }
+
+  button {
+    min-height: 40px;
+  }
+}/* AGRIMIND premium shell */
+#root{min-height:100vh;background:#f6f5ef}.app{min-height:100vh;display:block}.app-page-transition{min-width:0;margin-left:218px;min-height:100vh;transition:opacity .25s ease}@media(max-width:760px){.app-page-transition{margin-left:0;padding-top:72px}}
